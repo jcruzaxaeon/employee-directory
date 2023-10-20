@@ -15,10 +15,12 @@
 ## October 19, 2023                                                                                [//](#20231019)
 
 ### Tasklist                                                                                       [//](#20231019-tl)
-add modal window                                                                                   [//](#commit-description)
+
+#### add modal window                                                                              [//](#commit-description)
 - [x] create modal-like window on card-click displaying user details
 - [x] 'close' modal-like window on close-button-click
-api-request 12 users, display                                                                      [//](#commit-description)
+
+#### api-request 12 users, display                                                                 [//](#commit-description)
 - [x] initialize `js/scripts.js`                                                                   
 - [x] make a *single* API request to `randomuser.me/` for `12`-users
 - [x] display: (1) image, (2) first and last name, (3) email, (4) city or location
