@@ -17,6 +17,9 @@
 
 ## October 21, 2023
 
+   ### step-through employee modal-windows                                                         [//](#commit-description)
+   - [x] cycle through employee modal-windows by clicking (`prev`, `next`)-buttons
+
    ### implement search                                                                            [//](#commit-description)
    - [x] implement `form`-search on (`submit` / `search`)-events
 
@@ -51,7 +54,7 @@
 | `TTH`        | Team Treehouse (Code Academy)    |
 
 # Task Roster
-- [ ] Modal toggle (forward and back between employees)
 - [ ] Change at least one (color, background color, font, box or text shadows)
    - document changes in readme AND in project submission notes
 - [ ] Catch fetch errors
+- [ ] Review code for other necessary error catching

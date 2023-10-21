@@ -24,6 +24,7 @@ let initialUserArr = [];
 let filteredUserArr = [];
 let nameArr = [];
 let iniState = true;
+let modalIndex = 0;
 
 const searchDiv     = document.getElementsByClassName('search-container')[0];                      //#(!!!) Note: method returns a collection
 const galleryDiv    = document.getElementById('gallery');
@@ -90,21 +91,26 @@ function generateHTML(userArr) {
 bodyElem.addEventListener('click', e => {
 
    let elemArr = [];
-   let i, index = 0;
-   
+   let i = 0;
+   let index = 0;
+   let stepDirection = 0;
+   //let newIndex = 0;
+
    elemArr.push(e.target);
    let classArr = [].slice.call(elemArr[0].classList);
 
    // Check for click on user-card
    if( elemArr[0].classList.contains('clickable') ) {
-      let year = month = day ='';
 
-      for( i=0; classArr[0]!='card' && i<numOfUsers; i++ ) { 
+      // Find index of clicked card
+      for(i=0; classArr[0]!='card' && i<numOfUsers; i++) { 
          elemArr.push(elemArr[i].parentNode);
          classArr = [].slice.call(elemArr[i+1].classList);
       }
-      index = classArr[classArr.length-1];
+      modalIndex = classArr[classArr.length-1];
 
+      loadModal(modalIndex);
+      /*
       let ua = filteredUserArr[index];
       const name = `${ua.name.title} ${ua.name.first} ${ua.name.last}`;
       const loc = ua.location;
@@ -115,7 +121,7 @@ bodyElem.addEventListener('click', e => {
       for(i=8; i<10; i++) day  += [...ua.dob.date][i];
 
       let modalHTML = `
-         <div class="modal-container">
+         <div class="modal-container ${index}">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn close"><strong class="close">X</strong></button>
                 <div class="modal-info-container">
@@ -129,21 +135,81 @@ bodyElem.addEventListener('click', e => {
                     <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
                 </div>
             </div>
-            <!-- // IMPORTANT: Below is only for exceeds tasks 
+            
+            // IMPORTANT: Below is only for exceeds tasks 
             <div class="modal-btn-container">
-                <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                <button type="button" id="modal-next" class="modal-next btn">Next</button>
-            </div> -->
+                <button type="button" id="modal-prev" class="modal-prev btn step">Prev</button>
+                <button type="button" id="modal-next" class="modal-next btn step">Next</button>
+            </div>
          </div>
       `;
 
-      galleryDiv.insertAdjacentHTML('afterend', modalHTML);
+      galleryDiv.insertAdjacentHTML('afterend', modalHTML);*/
    }
 
    // Check for click on close-button elements
    if( e.target.classList.contains('close') )
       document.getElementsByClassName('modal-container')[0].remove();
+
+   // Check for click on modal toggle buttons
+   if( e.target.classList.contains('modal-prev') ) stepDirection = -1;
+   if( e.target.classList.contains('modal-next') ) stepDirection = 1;
+
+   modalIndex = Number(modalIndex) + Number(stepDirection);
+   
+   if( modalIndex < 0 ) modalIndex = filteredUserArr.length-1;
+   if( modalIndex > filteredUserArr.length-1 ) modalIndex = 0;
+   if( stepDirection !== 0) {
+      document.getElementsByClassName('modal-container')[0].remove();
+      loadModal(modalIndex);
+   }
 });
+
+
+
+
+
+function loadModal(index) {
+   let year = '';
+   let month = '';
+   let day = '';
+
+   let ua = filteredUserArr[index];
+
+   const name = `${ua.name.title} ${ua.name.first} ${ua.name.last}`;
+   const loc = ua.location;
+   const addr = `${loc.street.number} ${loc.street.name}, ${loc.city}, ${loc.state} ${loc.postcode}`;
+      
+   for(i=0; i<4; i++) year  += [...ua.dob.date][i];
+   for(i=5; i<7; i++) month += [...ua.dob.date][i];
+   for(i=8; i<10; i++) day  += [...ua.dob.date][i];
+
+   let modalHTML = `
+      <div class="modal-container ${index}">
+         <div class="modal">
+            <button type="button" id="modal-close-btn" class="modal-close-btn close"><strong class="close">X</strong></button>
+            <div class="modal-info-container">
+               <img class="modal-img" src="${ua.picture.large}" alt="profile picture">
+               <h3 id="name" class="modal-name cap">${name}</h3>
+               <p class="modal-text">${ua.email}</p>
+               <p class="modal-text cap">${ua.location.city}</p>
+               <hr>
+               <p class="modal-text">${ua.phone}</p>
+               <p class="modal-text">${addr}</p>
+               <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
+            </div>
+         </div>
+         
+         // IMPORTANT: Below is only for exceeds tasks 
+         <div class="modal-btn-container">
+            <button type="button" id="modal-prev" class="modal-prev btn step">Prev</button>
+            <button type="button" id="modal-next" class="modal-next btn step">Next</button>
+         </div>
+      </div>
+   `;
+
+   galleryDiv.insertAdjacentHTML('afterend', modalHTML);
+}
 
 /*
 ## Search Function
@@ -211,6 +277,10 @@ searchTextbox.addEventListener('keyup', e => {
       generateHTML(initialUserArr);
    }
 });
+
+
+
+
 
 /*
 # Helper Functions
