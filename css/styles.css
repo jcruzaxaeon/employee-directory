@@ -1,8 +1,46 @@
+
+/*
+------------------------------------------------------------------------------------------------100
+# Public API Requests                                                                              [//](#title)
+- styles.css                                                                                       [//](#filename)
+- main                                                                                             [//](#branch)
+- Team Treehouse project for Unit 5                                                                [//](#description)
+- axis                                                                                             [//](#author)
+- seraeonic.com `git submodule`                                                                    [//](#detail)
+- Team Treehouse Unit 5 Project                                                                    [//](#category)
+- 5_tth-project                                                                                    [//](#codename)
+*/
+
+
 /* ===================================== 
    Public API Request
 ======================================== */
 
+
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+
+/*
+## Fonts added for "Exceeds Expectations" criteria
+- Find other changes using `Ctrl-F`: EEC
+*/
+@font-face {
+   font-family: iSans;
+   src: url(../font/seaford.ttf);
+}
+@font-face {
+   font-family: iSans;
+   src: url(../font/seaford-bold.ttf);
+   font-weight: bold;
+}
+@font-face {
+   font-family: iSerif;
+   src: url(../font/hadassah-friedlaender.ttf);
+}  
+@font-face {
+   font-family: iSerif;
+   src: url(../font/hadassah-friedlaender-bold.ttf);
+   font-weight: bold;
+}
 
 * {
 	box-sizing: border-box;
@@ -14,7 +52,7 @@ html, body {
 }
 
 body {
-    font-family: "Nunito", sans-serif;
+    font-family: iSans, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /*Exceeds Expectations Customization (EEC)*/
     text-align: center;
     background: rgba(235, 235, 235, 0.9);
 }
@@ -107,6 +145,7 @@ header h1 {
 }
 
 .card-text {
+    font-family: iSerif, Georgia, 'Times New Roman', Times, serif; /*Exceeds Expectations Customization (EEC)*/
     font-size: 0.9em;
     color: rgba(50, 50, 50, 0.7);
     margin: 7px auto;
@@ -162,10 +201,12 @@ header h1 {
 }
 
 .modal-name {
+    font-family: iSans, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /*Exceeds Expectations Customization (EEC)*/
     margin-bottom: 5px;
 }
 
 .modal-text {
+    font-family: iSerif, Georgia, 'Times New Roman', Times, serif; /*Exceeds Expectations Customization (EEC)*/
     color: rgba(50, 50, 50, 0.7);
     margin: 10px;
 }

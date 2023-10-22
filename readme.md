@@ -10,12 +10,28 @@
 - Team Treehouse Unit 5 Project                                                                    [//](#category)
 - 5_tth-project                                                                                    [//](#codename)
 
+# Notable
+- Changed the font-schema to meet `Exceeds Expectations` criteria.  See commit-description below:
+```
+### modify font schema
+   - [x] add `Seaford`, and `Hadassah Friedlaender` true-type fonts to CSS
+   - [x] add and link associated `.ttf`-files
+   - [x] find changes to CSS with `Ctrl-F`: ECC
+```
+
 # Questions
 - [ ] (???) should i test, extract, and reformat `phone` if failure? ask tth-staff.
+- [ ] Add font change to "project submission notes"
 
 # Devlog
 
 ## October 21, 2023
+
+   ### modify font schema, handle fetch errors                                                     [//](#commit-description)
+   - [x] add `Seaford`, and `Hadassah Friedlaender` true-type fonts to CSS
+   - [x] add and link associated `.ttf`-files
+   - [x] find changes to CSS with `Ctrl-F`: ECC
+   - [x] add `.catch( err => {})` to `fetch()` promise-chain
 
    ### step-through employee modal-windows                                                         [//](#commit-description)
    - [x] cycle through employee modal-windows by clicking (`prev`, `next`)-buttons
@@ -54,7 +70,4 @@
 | `TTH`        | Team Treehouse (Code Academy)    |
 
 # Task Roster
-- [ ] Change at least one (color, background color, font, box or text shadows)
-   - document changes in readme AND in project submission notes
-- [ ] Catch fetch errors
 - [ ] Review code for other necessary error catching

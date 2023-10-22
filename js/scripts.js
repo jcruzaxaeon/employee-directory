@@ -51,6 +51,13 @@ fetch(randomUserURL)
    .then( dat => {
       initialUserArr = dat.results;
       generateHTML(initialUserArr);
+   })
+   .catch( err => {
+      const errHTML = `
+         <h2>Ecountered Commuication Error</h2>
+         <p><strong>Error Message:</strong> ${err}</p>
+      `;
+      galleryDiv.insertAdjacentHTML('afterend', errHTML);
    });
 
 /*
