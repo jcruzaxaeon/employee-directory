@@ -8,13 +8,12 @@
 - axis                                                                                             [//](#author)
 - seraeonic.com `git submodule`                                                                    [//](#detail)
 - Team Treehouse Unit 5 Project                                                                    [//](#category)
-- 5_tth-project / 5tthp                                                                            [//](#codename)
-*/
+- 5_tth-project / 5tthp                                                                            [//](#codename)*/
 
 
 
 /*
-Global Variables 
+Initialization and Global Variables
 -------------------------------------------------------------------------------------------------*/
 
 // Constants
@@ -29,21 +28,19 @@ let iniNameAoS        = []; // Array of User-Name Strings
 let iniState          = true;
 
 /** 
- * @param {number} gIndex - Global index value of data for modal-window
+ * Global index value of data for modal-window
+ * @param {number} gIndex
  */
 let gIndex            = 0; // Global index
 
 /*
 Initial Element Declarations
-- (!!!) *`m-m`*: `.getElementsByClassName()[]`; method returns a collection.
--------------------------------------------------------------------------------------------------*/
+- (!!!) *`m-m`*: `.getElementsByClassName()[]`; method returns a collection*/
 const searchDiv       = document.getElementsByClassName('search-container')[0];
 const galleryDiv      = document.getElementById('gallery');
 const bodyElem        = document.getElementsByTagName('body')[0];
 
-/*
-Static HTML Update
--------------------------------------------------------------------------------------------------*/
+// Static HTML Update
 const formHTML = `
 <form action="#" method="get">
    <input type="search" id="search-input" class="search-input" placeholder="Search...">
@@ -52,15 +49,18 @@ const formHTML = `
 `;
 searchDiv.insertAdjacentHTML('beforeend', formHTML);
 
-/*
-Follow-Up Element Declarations
--------------------------------------------------------------------------------------------------*/
+// Follow-Up Element Declarations
 const searchForm      = document.getElementsByTagName('form')[0];
 
-/*
-# Fetch Request
-- (!!!) Promise-chain similar to *`guard-clause`* technique
--------------------------------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * ## Fetch Request
+ * - (!!!) Promise-chain similar to *`guard-clause`* technique
+ */
+//-------------------------------------------------------------------------------------------------
 fetch(randomUserURL)
    .then( response => response.json() )
    .then( dat => {
@@ -75,22 +75,24 @@ fetch(randomUserURL)
       galleryDiv.insertAdjacentHTML('afterend', errHTML);
 });
 
-/*
-# Display Set of Users in userAoO (Array of User-Objects)
-- *`userAoO`*: Array of user-Objects
-- Set, embed HTML for provided array of user-objects
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * Display set of users in userAoO (Array of User-Objects)
+ * ## embedHTML(array of user-objects)
+ * - Display Set of Users in `userAoO`
+ * - Set, embed HTML for provided array of user-objects
  * @param {Array.Object} userAoO - Contains set of users to be displayed
  */
+//-------------------------------------------------------------------------------------------------
 function embedHTML(userAoO) {
    let galleryHTML = '';
    let ua = liveUserAoO = userAoO; //(***) Sometimes assigns liveUserAoO to itself
 
    /*
-   ## Write, Embed HTML
-   - (!!!)Classlist index-value re-indexed on every embedHTML()-call */
+   Write, Embed HTML
+   (!!!)Classlist index-value re-indexed on every embedHTML()-call */
    for(let i=0; i<ua.length; i++) {
       galleryHTML += `
       <div class="card clickable ${i}">
@@ -114,14 +116,16 @@ function embedHTML(userAoO) {
    galleryDiv.insertAdjacentHTML('beforeend', galleryHTML);
 }
 
-/*
-# User Details: Modal-Window Event-Listener
-- (!!!) Guard-clause implementation
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * User Details: Modal-Window Event-Listener
+ * ## User Details: Modal-Window Event-Listener
+ * - (!!!) Guard-clause implementation
  * @param {clickEvent} e - Click registered within <body>
  */
+//-------------------------------------------------------------------------------------------------
 bodyElem.addEventListener('click', e => {
 
    let stepDirection    = 0;
@@ -151,17 +155,18 @@ bodyElem.addEventListener('click', e => {
    }
 });
 
-/*
-# Set Global Index on Click inside Click-Target-Area with Internal Hierarchy
-- *`click`* (click-event)
-- *`container`* (string): Class codename identifying parent-container of all clickables
-   - Presence as lead classname (e.g. .classList[0]) pseudo-sets click-area boundary
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * Set Global Index on Click inside Click-Target-Area with Internal Hierarchy
- * @param {clickEvent} click
- * @param {string} containerName - Class codename to id parent-container of ALL clickables
+ * ## setGlobalIndex(clickEvent, string)
+ * - Set global index on click inside click-target-area with internal hierarchy
+ * - `containerName` as lead classname ( e.g. .classList[0] ) pseudo-sets click-area boundary
+ * @param {clickEvent} click - (clickEvent)
+ * @param {string} containerName - (string) Class codename to id parent-container of ALL clickables
  */
+//-------------------------------------------------------------------------------------------------
 function setGlobalIndex (click, containerName) {
    let elemArr      = [];
    let classlistAoS = [].slice.call(click.target.classList); // Array of Class-Strings
@@ -174,14 +179,16 @@ function setGlobalIndex (click, containerName) {
    gIndex = Number(classlistAoS[classlistAoS.length-1]); // Note: Index wrt displayed list
 }
 
-/*
-# Load Modal Window
-- *`index`* (number): liveList index; index of (displayed / filtered) list
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * Load modal window
- * @param {integer} index - relative to live display set
+ * ## loadModal(index)
+ * - Loads modal window
+ * @param {integer} index - (integer) liveList index; index of (displayed / filtered) list
  */
+//-------------------------------------------------------------------------------------------------
 function loadModal(index) {
    let year = '';
    let month = '';
@@ -226,21 +233,23 @@ function loadModal(index) {
    galleryDiv.insertAdjacentHTML('afterend', modalHTML);
 }
 
-/*
-## Search Function
-- Form-Implementation using (form / search / submit) vs. Keyup-Implementation
-   - searchTextbox.addEventListener('keyup', e => {});
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * Search Form Event Listener
+ * ## Search Form Event-Listener
+ * - Form-Implementation using (form / search / submit) vs. Keyup-Implementation
+ *    - *keyup-implementation*: searchTextbox.addEventListener('keyup', e => {});
  * @param {submitEvent} e - Search-form submit-event
  */
+//-------------------------------------------------------------------------------------------------
 searchForm.addEventListener('submit', e => {
    e.preventDefault();
    let indexArr  = [];
    let i         = 0;
    let k         = 0;
-   //let j         = 0; // In case of infinite-loop during testing
+   //let j         = 0; // [test-code-1]: In case of infinite-loop during testing
 
    let substring = e.target.firstElementChild.value;
    let na        = iniNameAoS; // Full-set of names
@@ -256,6 +265,7 @@ searchForm.addEventListener('submit', e => {
 
    // Search through full-set of names
    do {
+      
       // Find index of the first name that includes substring
       i = na.findIndex( name => name.includes(substring) );
 
@@ -264,8 +274,8 @@ searchForm.addEventListener('submit', e => {
          na = na.slice(i+1);
          k=k+i+1;
       }
-      //j++;
-   } while (i !== -1 /*&& j < numOfUsers*/);
+      //j++; [test-code-1]
+   } while (i !== -1 /*&& j < numOfUsers*/); // [test-code-1]
 
    galleryDiv.innerHTML='';
 
@@ -278,15 +288,17 @@ searchForm.addEventListener('submit', e => {
    } 
 });
 
-/*
-# Handle Click on Search-Input Clear Button
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 const searchTextbox = document.querySelector('#search-input');
 
 /**
- * Search Textbox Event Listener
+ * Search Textbox Event-Listener
  * @param {searchEvent} e - Search-event at search-textbox
  */
+//-------------------------------------------------------------------------------------------------
 searchTextbox.addEventListener('search', e => {
    if(e.target.value === '') {
       galleryDiv.innerHTML='';
@@ -294,13 +306,16 @@ searchTextbox.addEventListener('search', e => {
    }
 });
 
-/*
-# Reset Live List when Backspacing to Clear Input
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * Search textbox event-listener for Backspace-key
+ * ## Search Textbox Event-Listener for Backspace-Key
+ * - Reset live-list when backspaceing to clear input
  * @param {keyupEvent} e - Keyup-event at search-textbox
  */
+//-------------------------------------------------------------------------------------------------
 searchTextbox.addEventListener('keyup', e => {
    if( e.key === 'Backspace' && e.target.value === '') {
       galleryDiv.innerHTML='';
@@ -308,12 +323,15 @@ searchTextbox.addEventListener('keyup', e => {
    }
 });
 
-/*
-Helper Functions
--------------------------------------------------------------------------------------------------*/
+
+
+
+
 /**
- * `console.log()` Shorthand
+ * ## clog(any)
+ * - `console.log()` Shorthand
  * @param {any} x - Any single item to watch on console
  */
+//-------------------------------------------------------------------------------------------------
 function clog(x) { console.log(x); }
 
