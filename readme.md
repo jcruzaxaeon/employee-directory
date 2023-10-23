@@ -28,7 +28,7 @@
 
 ## October 21, 2023
 
-   ### fix comment error in `modalHTML`                                                            [//](#commit-description)
+   ### fix comment error in modalHTML                                                              [//](#commit-description)
    ### remove unused index var (j) from search-listener                                            [//](#commit-description)
    ### refactor 0                                                                                  [//](#commit-description)
 
