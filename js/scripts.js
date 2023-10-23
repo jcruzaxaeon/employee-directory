@@ -193,7 +193,7 @@ function loadModal(index) {
                <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
             </div>
          </div>
-         // IMPORTANT: Below is only for exceeds tasks 
+         <!-- IMPORTANT: Below is only for exceeds tasks -->
          <div class="modal-btn-container">
             <button type="button" id="modal-prev" class="modal-prev btn step">Prev</button>
             <button type="button" id="modal-next" class="modal-next btn step">Next</button>

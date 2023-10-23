@@ -19,14 +19,17 @@
    - [x] find changes to CSS with `Ctrl-F`: ECC
 ```
 
-# Questions
+# Externalities
 - [ ] (???) should i test, extract, and reformat `phone` if failure? ask tth-staff.
 - [ ] Add font change to "project submission notes"
+- [ ] Develop testing workflow <= correct set of bugs in a single-refactor commit
 
 # Devlog
 
 ## October 21, 2023
 
+   ### fix comment error in `modalHTML`                                                            [//](#commit-description)
+   ### remove unused index var (j) from search-listener                                            [//](#commit-description)
    ### refactor 0                                                                                  [//](#commit-description)
 
 ## October 21, 2023
