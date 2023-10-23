@@ -8,7 +8,7 @@
 - axis                                                                                             [//](#author)
 - seraeonic.com `git submodule`                                                                    [//](#detail)
 - Team Treehouse Unit 5 Project                                                                    [//](#category)
-- 5_tth-project                                                                                    [//](#codename)
+- 5_tth-project / 5tthp                                                                            [//](#codename)
 
 # Notable
 - Changed the font-schema to meet `Exceeds Expectations` criteria.  See commit-description below:
@@ -26,6 +26,14 @@
 # Devlog
 
 ## October 21, 2023
+
+   ### refactor 0                                                                                  [//](#commit-description)
+
+## October 21, 2023
+
+   ### correct link-font
+   - [x] add `<a>`-element to CSS-file
+   - [x] set font from schema
 
    ### modify font schema, handle fetch errors                                                     [//](#commit-description)
    - [x] add `Seaford`, and `Hadassah Friedlaender` true-type fonts to CSS
@@ -55,14 +63,14 @@
    - [x] make a *single* API request to `randomuser.me/` for `12`-users
    - [x] display: (1) image, (2) first and last name, (3) email, (4) city or location
 
-## October 17, 2023                                                                                [//](#20231017)
+## October 17, 2023                                                                                 [//](#20231017)
 
-   ### Tasklist                                                                                       [//](#20231017-tl)
-   - [x] stage default project-files from TTH                                                         [//](#commit-description)
+   ### Tasklist                                                                                     [//](#20231017-tl)
+   - [x] stage default project-files from TTH                                                       [//](#commit-description)
       - `index.html`
       - `styles.css`
       - `normalize.css`
-   - [x] stage project (onto `seraeonic.com`): html, git                                              [//](#commit-description)
+   - [x] stage project (onto `seraeonic.com`): html, git                                            [//](#commit-description)
 
 # Reference
 | Code         | Description                      |
@@ -70,4 +78,4 @@
 | `TTH`        | Team Treehouse (Code Academy)    |
 
 # Task Roster
-- [ ] Review code for other necessary error catching
+- [ ] Comment upgrade?

@@ -1,56 +1,65 @@
 
-
 /*
-# Public API Requests                                                                              [//](#title) 
 ---------------------------------------------------------------------------------------------------
+# Public API Requests                                                                              [//](#title) 
 - scripts.js                                                                                       [//](#filename)
 - main                                                                                             [//](#branch)
 - Team Treehouse project for Unit 5                                                                [//](#description)
 - axis                                                                                             [//](#author)
 - seraeonic.com `git submodule`                                                                    [//](#detail)
 - Team Treehouse Unit 5 Project                                                                    [//](#category)
-- 5_tth-project                                                                                    [//](#codename)
+- 5_tth-project / 5tthp                                                                            [//](#codename)
 */
 
 /*
-## Global Variables 
-----------------------------------------------------------------------------------------------100*/
-const numOfUsers    = 12;
-const nationality   ='us';
-const randomUserURL = `https://randomuser.me/api/?results=${numOfUsers}&nat=${nationality}`;
+Global Variables 
+-------------------------------------------------------------------------------------------------*/
+
+// Constants
+const numOfUsers      = 12;
+const nationality     ='us';
+const randomUserURL   = `https://randomuser.me/api/?results=${numOfUsers}&nat=${nationality}`;
 
 // Initializations
-let initialUserArr = [];
-let filteredUserArr = [];
-let nameArr = [];
-let iniState = true;
-let modalIndex = 0;
+let iniUserAoO    = []; // Initial Array of User-Objects
+let liveUserAoO       = []; // Filtered (by search) Array of User-Objects
+let iniNameAoS        = []; // Array of User-Name Strings
+let iniState          = true;
+let gIndex            = 0; // Global index
 
-const searchDiv     = document.getElementsByClassName('search-container')[0];                      //#(!!!) Note: method returns a collection
-const galleryDiv    = document.getElementById('gallery');
-const bodyElem      = document.getElementsByTagName('body')[0];
+/*
+Initial Element Declarations
+- (!!!) *`m-m`*: `.getElementsByClassName()[]`; method returns a collection.
+-------------------------------------------------------------------------------------------------*/
+const searchDiv       = document.getElementsByClassName('search-container')[0];
+const galleryDiv      = document.getElementById('gallery');
+const bodyElem        = document.getElementsByTagName('body')[0];
 
+/*
+Static HTML Update
+-------------------------------------------------------------------------------------------------*/
 const formHTML = `
 <form action="#" method="get">
    <input type="search" id="search-input" class="search-input" placeholder="Search...">
    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
 </form>
 `;
-
-/*
-## Static HTML Update
-----------------------------------------------------------------------------------------------100*/
 searchDiv.insertAdjacentHTML('beforeend', formHTML);
 
 /*
-## Fetch Request
-----------------------------------------------------------------------------------------------100*/
-// Promise-chain is the equivalent of the *`guard-clause`* conditional-statement technique
+Follow-Up Element Declarations
+-------------------------------------------------------------------------------------------------*/
+const searchForm      = document.getElementsByTagName('form')[0];
+
+/*
+# Fetch Request
+- (!!!) Promise-chain similar to *`guard-clause`* technique
+-------------------------------------------------------------------------------------------------*/
 fetch(randomUserURL)
    .then( response => response.json() )
    .then( dat => {
-      initialUserArr = dat.results;
-      generateHTML(initialUserArr);
+      iniUserAoO = dat.results;
+      embedHTML(iniUserAoO);
    })
    .catch( err => {
       const errHTML = `
@@ -58,16 +67,20 @@ fetch(randomUserURL)
          <p><strong>Error Message:</strong> ${err}</p>
       `;
       galleryDiv.insertAdjacentHTML('afterend', errHTML);
-   });
+});
 
 /*
-## Dynamic HTML Update
+# Dynamic HTML Update
+- *`userArr`*: Array of user-Objects
+- Set, embed HTML for provided array of user-objects
 ----------------------------------------------------------------------------------------------100*/
-function generateHTML(userArr) {
+function embedHTML(userArr) {
    let galleryHTML = '';
+   let ua = liveUserAoO = userArr; //(***) Sometimes assigns liveUserAoO to itself
 
-   ua = filteredUserArr = userArr;
-
+   /*
+   ## Write, Embed HTML
+   - (!!!)Classlist index-value re-indexed on every embedHTML()-call */
    for(let i=0; i<ua.length; i++) {
       galleryHTML += `
       <div class="card clickable ${i}">
@@ -84,7 +97,7 @@ function generateHTML(userArr) {
       </div>
       `;
 
-      if(iniState === true) nameArr.push(`${ua[i].name.first} ${ua[i].name.last}`.toLowerCase());
+      if(iniState === true) iniNameAoS.push(`${ua[i].name.first} ${ua[i].name.last}`.toLowerCase());
    }
 
    iniState = false;
@@ -92,109 +105,83 @@ function generateHTML(userArr) {
 }
 
 /*
-## User Details Modal-Window (Event Listener)
----------------------------------------------------------------------------------------------------
-*/
+# User Details: Modal-Window Event-Listener
+- (!!!) Guard-clause implementation
+-------------------------------------------------------------------------------------------------*/
 bodyElem.addEventListener('click', e => {
 
-   let elemArr = [];
-   let i = 0;
-   let index = 0;
-   let stepDirection = 0;
-   //let newIndex = 0;
+   let stepDirection    = 0;
 
-   elemArr.push(e.target);
-   let classArr = [].slice.call(elemArr[0].classList);
-
-   // Check for click on user-card
-   if( elemArr[0].classList.contains('clickable') ) {
-
-      // Find index of clicked card
-      for(i=0; classArr[0]!='card' && i<numOfUsers; i++) { 
-         elemArr.push(elemArr[i].parentNode);
-         classArr = [].slice.call(elemArr[i+1].classList);
-      }
-      modalIndex = classArr[classArr.length-1];
-
-      loadModal(modalIndex);
-      /*
-      let ua = filteredUserArr[index];
-      const name = `${ua.name.title} ${ua.name.first} ${ua.name.last}`;
-      const loc = ua.location;
-      const addr = `${loc.street.number} ${loc.street.name}, ${loc.city}, ${loc.state} ${loc.postcode}`;
-      
-      for(i=0; i<4; i++) year  += [...ua.dob.date][i];
-      for(i=5; i<7; i++) month += [...ua.dob.date][i];
-      for(i=8; i<10; i++) day  += [...ua.dob.date][i];
-
-      let modalHTML = `
-         <div class="modal-container ${index}">
-            <div class="modal">
-                <button type="button" id="modal-close-btn" class="modal-close-btn close"><strong class="close">X</strong></button>
-                <div class="modal-info-container">
-                    <img class="modal-img" src="${ua.picture.large}" alt="profile picture">
-                    <h3 id="name" class="modal-name cap">${name}</h3>
-                    <p class="modal-text">${ua.email}</p>
-                    <p class="modal-text cap">${ua.location.city}</p>
-                    <hr>
-                    <p class="modal-text">${ua.phone}</p>
-                    <p class="modal-text">${addr}</p>
-                    <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
-                </div>
-            </div>
-            
-            // IMPORTANT: Below is only for exceeds tasks 
-            <div class="modal-btn-container">
-                <button type="button" id="modal-prev" class="modal-prev btn step">Prev</button>
-                <button type="button" id="modal-next" class="modal-next btn step">Next</button>
-            </div>
-         </div>
-      `;
-
-      galleryDiv.insertAdjacentHTML('afterend', modalHTML);*/
+   if(e.target.classList.contains('clickable')) {
+      setGlobalIndex(e, 'card'); 
+      loadModal(gIndex);
    }
 
    // Check for click on close-button elements
    if( e.target.classList.contains('close') )
       document.getElementsByClassName('modal-container')[0].remove();
 
-   // Check for click on modal toggle buttons
+   // Handle modal-toggle buttons (prev, next)
    if( e.target.classList.contains('modal-prev') ) stepDirection = -1;
    if( e.target.classList.contains('modal-next') ) stepDirection = 1;
 
-   modalIndex = Number(modalIndex) + Number(stepDirection);
+   // Recalculate gIndex
+   gIndex = gIndex + stepDirection;
+   if( gIndex < 0 ) gIndex = liveUserAoO.length-1;
+   if( gIndex > liveUserAoO.length-1 ) gIndex = 0;
    
-   if( modalIndex < 0 ) modalIndex = filteredUserArr.length-1;
-   if( modalIndex > filteredUserArr.length-1 ) modalIndex = 0;
+   // On modal-toggle-click, reset modal
    if( stepDirection !== 0) {
       document.getElementsByClassName('modal-container')[0].remove();
-      loadModal(modalIndex);
+      loadModal(gIndex);
    }
 });
 
+/*
+# Set Global Index on Click inside Click-Target-Area with Internal Hierarchy
+- *`click`* (click-event)
+- *`container`* (string): Class codename identifying parent-container of all clickables
+   - Presence as lead classname (e.g. .classList[0]) pseudo-sets click-area boundary
+-------------------------------------------------------------------------------------------------*/
+function setGlobalIndex (click, containerName) {
+   let elemArr      = [];
+   let classlistAoS = [].slice.call(click.target.classList); // Array of Class-Strings
 
+   // Find index of click-target-area parent-element
+   for(i=0, elemArr.push(click.target); classlistAoS[0]!==containerName && i<numOfUsers; i++) { 
+      elemArr.push(elemArr[i].parentNode);
+      classlistAoS = [].slice.call(elemArr[i+1].classList);
+   }
+   gIndex = Number(classlistAoS[classlistAoS.length-1]); // Note: Index wrt displayed list
+}
 
-
-
+/*
+# Load Modal Window
+- *`index`* (number): liveList index; index of (displayed / filtered) list
+-------------------------------------------------------------------------------------------------*/
 function loadModal(index) {
    let year = '';
    let month = '';
    let day = '';
 
-   let ua = filteredUserArr[index];
-
+   // Local Variable Codenames (used to keep lines short)
+   let ua = liveUserAoO[index];
    const name = `${ua.name.title} ${ua.name.first} ${ua.name.last}`;
    const loc = ua.location;
    const addr = `${loc.street.number} ${loc.street.name}, ${loc.city}, ${loc.state} ${loc.postcode}`;
-      
+   
+   // Extract date-values character-by-character
    for(i=0; i<4; i++) year  += [...ua.dob.date][i];
    for(i=5; i<7; i++) month += [...ua.dob.date][i];
    for(i=8; i<10; i++) day  += [...ua.dob.date][i];
 
+   // Write, Embed Modal
    let modalHTML = `
       <div class="modal-container ${index}">
          <div class="modal">
-            <button type="button" id="modal-close-btn" class="modal-close-btn close"><strong class="close">X</strong></button>
+            <button type="button" id="modal-close-btn" class="modal-close-btn close">
+               <strong class="close">X</strong>
+            </button>
             <div class="modal-info-container">
                <img class="modal-img" src="${ua.picture.large}" alt="profile picture">
                <h3 id="name" class="modal-name cap">${name}</h3>
@@ -206,7 +193,6 @@ function loadModal(index) {
                <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
             </div>
          </div>
-         
          // IMPORTANT: Below is only for exceeds tasks 
          <div class="modal-btn-container">
             <button type="button" id="modal-prev" class="modal-prev btn step">Prev</button>
@@ -214,133 +200,85 @@ function loadModal(index) {
          </div>
       </div>
    `;
-
    galleryDiv.insertAdjacentHTML('afterend', modalHTML);
 }
 
+
+
+
+
 /*
 ## Search Function
-- Form implementation
-   - *`form`*: <form>
-   - *`search`*: <input type='search'>
-   - *`submit`*: <input type='submit'> 
----------------------------------------------------------------------------------------------------
-*/
-const searchForm = document.getElementsByTagName('form')[0];
-
+- Form-Implementation using (form / search / submit) vs. Keyup-Implementation
+   - searchTextbox.addEventListener('keyup', e => {});
+-------------------------------------------------------------------------------------------------*/
 searchForm.addEventListener('submit', e => {
    e.preventDefault();
+   let indexArr  = [];
+   let i         = 0;
+   let k         = 0;
+   //let j         = 0; // In case of infinite-loop during testing
 
    let substring = e.target.firstElementChild.value;
-   let na = nameArr;
-   let indexArr = [];
-   let temp = [];
-   let i, j, k;
-   i = j = k = 0;
+   let na        = iniNameAoS; // Full-set of names
 
    substring = substring.toLowerCase();
 
-   do {
-      i = na.findIndex( x => x.includes(substring) );
+   // Restore initial user-set on an empty('') `submit`-event
+   if(substring === '') {
+      galleryDiv.innerHTML='';
+      embedHTML(iniUserAoO);
+      return;
+   }
 
-      if(i !== -1 && substring !== '') {
-         temp.push(na[i]);
-         indexArr.push(i+k);
+   // Search through full-set of names
+   do {
+      // Find index of the first name that includes substring
+      i = na.findIndex( name => name.includes(substring) );
+
+      if(i !== -1) {
+         indexArr.push(k+i);
          na = na.slice(i+1);
-         k=i+k+1;
+         k=k+i+1;
       }
       j++;
-   } while (i !== -1 && j < numOfUsers);
+   } while (i !== -1 /*&& j < numOfUsers*/);
 
    galleryDiv.innerHTML='';
 
    if(indexArr.length >= 1) {
-      filteredUserArr = [];
+      liveUserAoO = [];
       for(i=0; i<indexArr.length; i++) {
-         filteredUserArr.push( initialUserArr[indexArr[i]] );
+         liveUserAoO.push( iniUserAoO[indexArr[i]] );
       }
-      generateHTML(filteredUserArr);
+      embedHTML(liveUserAoO);
    } 
-   
-   // Restore initial user array on an empty('') `submit`-event
-   else if(substring === '') {
-      galleryDiv.innerHTML='';
-      generateHTML(initialUserArr);
-   }
 });
 
+/*
+# Handle Click on Search-Input Clear Button
+-------------------------------------------------------------------------------------------------*/
 const searchTextbox = document.querySelector('#search-input');
 
 searchTextbox.addEventListener('search', e => {
    if(e.target.value === '') {
       galleryDiv.innerHTML='';
-      generateHTML(initialUserArr);
+      embedHTML(iniUserAoO);
    }
 });
 
+/*
+# Reset Live List when Backspacing to Clear Input
+-------------------------------------------------------------------------------------------------*/
 searchTextbox.addEventListener('keyup', e => {
    if( e.key === 'Backspace' && e.target.value === '') {
       galleryDiv.innerHTML='';
-      generateHTML(initialUserArr);
+      embedHTML(iniUserAoO);
    }
 });
 
-
-
-
-
 /*
-# Helper Functions
-*/
+Helper Functions
+-------------------------------------------------------------------------------------------------*/
 function clog(x) { console.log(x); }
 
-
-
-
-
-/*
-## Search Function
-- `keyup` implementation
----------------------------------------------------------------------------------------------------
-*/
-/*
-searchTextbox.addEventListener('keyup', e => {
-
-   let na = nameArr;
-   let indexArr = [];
-   let temp = [];
-   let i = 0;
-   let j = 0;
-   let k = 0;
-
-   if( e.key === 'Backspace' && e.target.value === '') {
-      galleryDiv.innerHTML='';
-      generateHTML(initialUserArr);
-   }
-
-   if(e.key === 'Enter') {
-      do {
-         i = na.findIndex( x => x.includes(e.target.value) );
-         //l(i);
-         if(i !== -1) {
-            temp.push(na[i]);
-            indexArr.push(i+k);
-            na = na.slice(i+1);
-            //l(na);
-            k=i+k+1;
-         }
-         j++;
-      } while (i !== -1 && j < numOfUsers);
-      //l(temp);
-      l(indexArr);
-      galleryDiv.innerHTML='';
-   
-      if(indexArr.length >= 1) {
-         filteredUserArr = [];
-         for(i=0; i<indexArr.length; i++) {
-            filteredUserArr.push( initialUserArr[indexArr[i]] );
-         }
-         generateHTML(filteredUserArr);
-      }
-   }
-*/

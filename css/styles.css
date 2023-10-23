@@ -8,9 +8,8 @@
 - axis                                                                                             [//](#author)
 - seraeonic.com `git submodule`                                                                    [//](#detail)
 - Team Treehouse Unit 5 Project                                                                    [//](#category)
-- 5_tth-project                                                                                    [//](#codename)
+- 5_tth-project / 5tthp                                                                            [//](#codename)
 */
-
 
 /* ===================================== 
    Public API Request
@@ -59,6 +58,10 @@ body {
 
 header {
     padding: 15px 5px 5px;
+}
+
+a {
+   font-family: iSans, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /*Exceeds Expectations Customization (EEC)*/
 }
 
 .header-inner-container {
