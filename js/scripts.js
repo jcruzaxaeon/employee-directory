@@ -241,7 +241,7 @@ searchForm.addEventListener('submit', e => {
          na = na.slice(i+1);
          k=k+i+1;
       }
-      j++;
+      //j++;
    } while (i !== -1 /*&& j < numOfUsers*/);
 
    galleryDiv.innerHTML='';
