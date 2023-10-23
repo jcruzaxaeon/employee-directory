@@ -10,7 +10,15 @@
 - Team Treehouse Unit 5 Project                                                                    [//](#category)
 - 5_tth-project / 5tthp                                                                            [//](#codename)
 
+# Table of Contents
+1. [Notable](#notable)
+1. [Externalities](#externalities)
+1. [Devlog](#devlog)
+1. [Reference](#reference)
+1. [Task Roster](#task-roster)
+
 # Notable
+- [ToC](#table-of-contents)
 - Changed the font-schema to meet `Exceeds Expectations` criteria.  See commit-description below:
 ```
 ### modify font schema
@@ -20,14 +28,17 @@
 ```
 
 # Externalities
+- [ToC](#table-of-contents)
 - [ ] (???) should i test, extract, and reformat `phone` if failure? ask tth-staff.
 - [ ] Add font change to "project submission notes"
 - [ ] Develop testing workflow <= correct set of bugs in a single-refactor commit
 
 # Devlog
+- [ToC](#table-of-contents)
 
-## October 21, 2023
+## October 23, 2023
 
+   ### add light JSDoc comments                                                                    [//](#commit-description)
    ### fix comment error in modalHTML                                                              [//](#commit-description)
    ### remove unused index var (j) from search-listener                                            [//](#commit-description)
    ### refactor 0                                                                                  [//](#commit-description)
@@ -76,9 +87,13 @@
    - [x] stage project (onto `seraeonic.com`): html, git                                            [//](#commit-description)
 
 # Reference
+- [ToC](#table-of-contents)
+
 | Code         | Description                      |
 | ------------ | -------------------------------- |
 | `TTH`        | Team Treehouse (Code Academy)    |
 
 # Task Roster
-- [ ] Comment upgrade?
+- [ToC](#table-of-contents)
+
+- [ ] {Add tasks here}

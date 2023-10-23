@@ -11,6 +11,8 @@
 - 5_tth-project / 5tthp                                                                            [//](#codename)
 */
 
+
+
 /*
 Global Variables 
 -------------------------------------------------------------------------------------------------*/
@@ -21,10 +23,14 @@ const nationality     ='us';
 const randomUserURL   = `https://randomuser.me/api/?results=${numOfUsers}&nat=${nationality}`;
 
 // Initializations
-let iniUserAoO    = []; // Initial Array of User-Objects
+let iniUserAoO        = []; // Initial Array of User-Objects
 let liveUserAoO       = []; // Filtered (by search) Array of User-Objects
 let iniNameAoS        = []; // Array of User-Name Strings
 let iniState          = true;
+
+/** 
+ * @param {number} gIndex - Global index value of data for modal-window
+ */
 let gIndex            = 0; // Global index
 
 /*
@@ -70,13 +76,17 @@ fetch(randomUserURL)
 });
 
 /*
-# Dynamic HTML Update
-- *`userArr`*: Array of user-Objects
+# Display Set of Users in userAoO (Array of User-Objects)
+- *`userAoO`*: Array of user-Objects
 - Set, embed HTML for provided array of user-objects
-----------------------------------------------------------------------------------------------100*/
-function embedHTML(userArr) {
+-------------------------------------------------------------------------------------------------*/
+/**
+ * Display set of users in userAoO (Array of User-Objects)
+ * @param {Array.Object} userAoO - Contains set of users to be displayed
+ */
+function embedHTML(userAoO) {
    let galleryHTML = '';
-   let ua = liveUserAoO = userArr; //(***) Sometimes assigns liveUserAoO to itself
+   let ua = liveUserAoO = userAoO; //(***) Sometimes assigns liveUserAoO to itself
 
    /*
    ## Write, Embed HTML
@@ -108,6 +118,10 @@ function embedHTML(userArr) {
 # User Details: Modal-Window Event-Listener
 - (!!!) Guard-clause implementation
 -------------------------------------------------------------------------------------------------*/
+/**
+ * User Details: Modal-Window Event-Listener
+ * @param {clickEvent} e - Click registered within <body>
+ */
 bodyElem.addEventListener('click', e => {
 
    let stepDirection    = 0;
@@ -143,6 +157,11 @@ bodyElem.addEventListener('click', e => {
 - *`container`* (string): Class codename identifying parent-container of all clickables
    - Presence as lead classname (e.g. .classList[0]) pseudo-sets click-area boundary
 -------------------------------------------------------------------------------------------------*/
+/**
+ * Set Global Index on Click inside Click-Target-Area with Internal Hierarchy
+ * @param {clickEvent} click
+ * @param {string} containerName - Class codename to id parent-container of ALL clickables
+ */
 function setGlobalIndex (click, containerName) {
    let elemArr      = [];
    let classlistAoS = [].slice.call(click.target.classList); // Array of Class-Strings
@@ -159,6 +178,10 @@ function setGlobalIndex (click, containerName) {
 # Load Modal Window
 - *`index`* (number): liveList index; index of (displayed / filtered) list
 -------------------------------------------------------------------------------------------------*/
+/**
+ * Load modal window
+ * @param {integer} index - relative to live display set
+ */
 function loadModal(index) {
    let year = '';
    let month = '';
@@ -203,15 +226,15 @@ function loadModal(index) {
    galleryDiv.insertAdjacentHTML('afterend', modalHTML);
 }
 
-
-
-
-
 /*
 ## Search Function
 - Form-Implementation using (form / search / submit) vs. Keyup-Implementation
    - searchTextbox.addEventListener('keyup', e => {});
 -------------------------------------------------------------------------------------------------*/
+/**
+ * Search Form Event Listener
+ * @param {submitEvent} e - Search-form submit-event
+ */
 searchForm.addEventListener('submit', e => {
    e.preventDefault();
    let indexArr  = [];
@@ -260,6 +283,10 @@ searchForm.addEventListener('submit', e => {
 -------------------------------------------------------------------------------------------------*/
 const searchTextbox = document.querySelector('#search-input');
 
+/**
+ * Search Textbox Event Listener
+ * @param {searchEvent} e - Search-event at search-textbox
+ */
 searchTextbox.addEventListener('search', e => {
    if(e.target.value === '') {
       galleryDiv.innerHTML='';
@@ -270,6 +297,10 @@ searchTextbox.addEventListener('search', e => {
 /*
 # Reset Live List when Backspacing to Clear Input
 -------------------------------------------------------------------------------------------------*/
+/**
+ * Search textbox event-listener for Backspace-key
+ * @param {keyupEvent} e - Keyup-event at search-textbox
+ */
 searchTextbox.addEventListener('keyup', e => {
    if( e.key === 'Backspace' && e.target.value === '') {
       galleryDiv.innerHTML='';
@@ -280,5 +311,9 @@ searchTextbox.addEventListener('keyup', e => {
 /*
 Helper Functions
 -------------------------------------------------------------------------------------------------*/
+/**
+ * `console.log()` Shorthand
+ * @param {any} x - Any single item to watch on console
+ */
 function clog(x) { console.log(x); }
 
