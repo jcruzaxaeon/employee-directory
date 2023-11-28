@@ -26,7 +26,7 @@
 - GreenGeeks Hosting
 
 ## Data
-- `note`: Card-catalog update
+- `note`: Merge to `axaeon.com`
 - `detail`: git submodule for `axaeon.com`
 - `code`: 5t
 - `description`: Simple employee directory with name-search function
